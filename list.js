@@ -11,10 +11,6 @@ class Node {
     set setNext(value) {
         this.next = value;
     }
-
-    get getNext() {
-        return this.next;
-    } 
 }
 
 class LinkedList  {
@@ -30,7 +26,19 @@ class LinkedList  {
     append(value) {
         const newNode = new Node();
         newNode.setValue = value;
-        this.next = newNode;
+
+        if (this.size() === 1) {
+            this.next = newNode;
+        } else {
+            let nextNode = this.next;
+
+            while (nextNode.next !== null) {
+                nextNode = nextNode.next;
+            }
+
+            nextNode.next = newNode;
+        }
+
     };
 
     prepend(value) {
@@ -43,8 +51,6 @@ class LinkedList  {
         this.head = value;
         this.next = previousHead;
     };
-
-    
 
     size() {
         //iterative approach
@@ -60,26 +66,77 @@ class LinkedList  {
 
         //recursive approach
         function getSize(node) {
-
-            if (node === null) {
-                return 0;
+            if (node.next === null) {
+                return 1;
             } else {
                 return 1 + getSize(node.next);
             }
         }
+        return getSize(this);
+    }
 
-        getSize(this)
+    firstNode() {
+        return this.head;
+    }
+
+    lastNode() {
+
+        if (this.next === null) {
+            return this.head
+        } else {
+
+            let nextNode = this.next;
+
+            while (nextNode.next !== null) {
+                nextNode = nextNode.next;
+            }
+
+            return nextNode.value
+        }
+
+    };
+
+    at(num) {
+
+        if (num >= this.size()) {
+            return "Not found"
+        } else if (num === 0) {
+            return this.head
+        } else {
+            let count = 1; 
+            let node = this.next; 
+
+            while (num !== count) {
+                count += 1;
+                node = node.next;
+            }
+            
+            return node.value;
+        }
+    }
+
+    pop() {
+
+        if (this.next !== null) {
+
+            let nextNode = this.next.next;
+
+            while (nextNode.next !== null) {
+                nextNode = nextNode.next;
+            }
+
+            nextNode = null;
+        }
     }
 }
 
 let fruit = new LinkedList("apple")
 
 fruit.append("orange")
+console.log(fruit.lastNode())
 
-console.log(fruit);
+fruit.append("banana");
+console.log(fruit.lastNode())
 
-fruit.prepend("banana");
-
-console.log(fruit)
-
-console.log(fruit.size())
+fruit.pop()
+console.log(fruit.lastNode())
