@@ -116,16 +116,36 @@ class LinkedList  {
     }
 
     pop() {
-
         if (this.next !== null) {
+            if (this.next.next === null) {
+                this.next = null;
+            } else {
+                let checkEnd = this.next;
 
-            let nextNode = this.next.next;
-
-            while (nextNode.next !== null) {
-                nextNode = nextNode.next;
+                while (checkEnd.next.next !== null) {
+                    checkEnd = checkEnd.next;
+                }
+    
+                checkEnd.next = null;
             }
+        }
+    }
 
-            nextNode = null;
+    contains(lookfor) {
+        function lookForValue(node) {
+            if (node.value === lookfor) {
+                return true;
+            } else if (node.next !== null) {
+                return lookForValue(node.next)
+            } else {
+                return false;
+            }
+        }
+
+        if (this.head === lookfor) {
+            return true;
+        } else {
+            return lookForValue(this.next)
         }
     }
 }
@@ -138,5 +158,4 @@ console.log(fruit.lastNode())
 fruit.append("banana");
 console.log(fruit.lastNode())
 
-fruit.pop()
-console.log(fruit.lastNode())
+console.log(fruit.contains("pineapple"))
