@@ -148,6 +148,30 @@ class LinkedList  {
             return lookForValue(this.next)
         }
     }
+
+    find(lookfor) {
+
+        if (this.next === null && this.head !== lookfor) {
+            return "Not found";
+        } else if (this.head === lookfor){
+            return 0;
+        } else {
+            let count = 1;
+            let node = this.next;
+
+            while (node.value !== lookfor && node.next !== null) {
+                node = node.next;
+                count += 1;
+            }
+
+            if (node.next === null && node.value !== lookfor) {
+                return "Not found";
+            } else {
+                return count;
+            }
+        }
+    }
+
 }
 
 let fruit = new LinkedList("apple")
@@ -158,4 +182,4 @@ console.log(fruit.lastNode())
 fruit.append("banana");
 console.log(fruit.lastNode())
 
-console.log(fruit.contains("pineapple"))
+console.log(fruit.find("orange"))
