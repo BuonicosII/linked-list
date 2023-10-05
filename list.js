@@ -170,8 +170,19 @@ class LinkedList  {
                 return count;
             }
         }
-    }
+    };
 
+    toString() {
+            let output = `( ${this.head} ) -> `;
+            let node = this.next;
+
+            while (node !== null ) {
+                output += `( ${node.value} ) -> `
+                node = node.next
+            }
+
+            return output + null;
+        }
 }
 
 let fruit = new LinkedList("apple")
@@ -182,4 +193,4 @@ console.log(fruit.lastNode())
 fruit.append("banana");
 console.log(fruit.lastNode())
 
-console.log(fruit.find("orange"))
+console.log(fruit.toString())
