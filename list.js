@@ -182,7 +182,48 @@ class LinkedList  {
             }
 
             return output + null;
+    }
+
+    insertAt(value, index) {
+        if (index === 0) {
+            this.prepend(value);
+        } else if (index >= this.size()) {
+            this.append(value)
+        } else {
+            let count = 1; 
+            let node = this.next; 
+
+            while (index !== count) {
+                count += 1;
+                node = node.next;
+            }
+
+            let newNode = new Node();
+            newNode.setValue = value;
+            newNode.setNext = node.next;
+            node.next = newNode;
         }
+    }
+
+    removeAt(index) {
+        if (index === 0) {
+            this.head = this.next.value;
+            this.next = this.next.next;
+        } else if (index === 1) {
+            this.next = this.next.next;
+        } else if (index >= this.size()) {
+            return
+        } else {
+            let count = 2; 
+            let node = this.next; 
+
+            while (index !== count) {
+                count += 1;
+                node = node.next;
+            }
+            node.next = node.next.next;
+        }
+    }
 }
 
 let fruit = new LinkedList("apple")
@@ -194,3 +235,11 @@ fruit.append("banana");
 console.log(fruit.lastNode())
 
 console.log(fruit.toString())
+
+fruit.insertAt("pineapple", 1);
+
+console.log(fruit.toString());
+
+fruit.removeAt(40);
+
+console.log(fruit.toString());
